@@ -1,27 +1,26 @@
-from flask import Flask,redirect,url_for,render_template,request
+from flask import Flask, redirect, url_for, render_template, request
 import ibm_boto3
 from ibm_botocore.client import Config, ClientError
 
-COS_ENDPOINT="https://s3.jp-tok.cloud-object-storage.appdomain.cloud"
-COS_API_KEY_ID=" "
-COS_INSTANCE_CRN=""
-
+COS_ENDPOINT = ""
+COS_API_KEY_ID = " "
+COS_INSTANCE_CRN = ""
 
 
 # Create resource https://s3.ap.cloud-object-storage.appdomain.cloud
 cos = ibm_boto3.resource("s3",
-    ibm_api_key_id=COS_API_KEY_ID,
-    ibm_service_instance_id=COS_INSTANCE_CRN,
-    config=Config(signature_version="oauth"),
-    endpoint_url=COS_ENDPOINT
-)
+                         ibm_api_key_id=COS_API_KEY_ID,
+                         ibm_service_instance_id=COS_INSTANCE_CRN,
+                         config=Config(signature_version="oauth"),
+                         endpoint_url=COS_ENDPOINT
+                         )
 
-app=Flask(__name__)
-
+app = Flask(__name__)
 
 
 def get_item(bucket_name, item_name):
-    print("Retrieving item from bucket: {0}, key: {1}".format(bucket_name, item_name))
+    print("Retrieving item from bucket: {0}, key: {1}".format(
+        bucket_name, item_name))
     try:
         file = cos.Object(bucket_name, item_name).get()
 
@@ -57,10 +56,10 @@ def delete_item(bucket_name, object_name):
         print("Unable to delete object: {0}".format(e))
 
 
-
 def multi_part_upload(bucket_name, item_name, file_path):
     try:
-        print("Starting file transfer for {0} to bucket: {1}\n".format(item_name, bucket_name))
+        print("Starting file transfer for {0} to bucket: {1}\n".format(
+            item_name, bucket_name))
         # set 5 MB chunks
         part_size = 1024 * 1024 * 5
 
@@ -87,39 +86,38 @@ def multi_part_upload(bucket_name, item_name, file_path):
     except Exception as e:
         print("Unable to complete multi-part upload: {0}".format(e))
 
-  
+
 @app.route('/')
 def index():
     files = get_bucket_contents('flaskapp123')
-    return render_template('index.html', files = files)
+    return render_template('index.html', files=files)
 
-@app.route('/deletefile', methods = ['GET', 'POST'])
+
+@app.route('/deletefile', methods=['GET', 'POST'])
 def deletefile():
-   if request.method == 'POST':
-       bucket=request.form['bucket']
-       name_file=request.form['filename']
-       
-       delete_item(bucket,name_file)
-       return 'file deleted successfully'
-    
-   if request.method == 'GET':
-       return render_template('delete.html')
-        
-	
-@app.route('/uploader', methods = ['GET', 'POST'])
+    if request.method == 'POST':
+        bucket = request.form['bucket']
+        name_file = request.form['filename']
+
+        delete_item(bucket, name_file)
+        return 'file deleted successfully'
+
+    if request.method == 'GET':
+        return render_template('delete.html')
+
+
+@app.route('/uploader', methods=['GET', 'POST'])
 def upload():
-   if request.method == 'POST':
-       bucket=request.form['bucket']
-       name_file=request.form['filename']
-       f = request.files['file']
-       multi_part_upload(bucket,name_file,f.filename)
-       return 'file uploaded successfully <a href="/">GO to Home</a>'
-       
-    
-   if request.method == 'GET':
-       return render_template('upload.html')
+    if request.method == 'POST':
+        bucket = request.form['bucket']
+        name_file = request.form['filename']
+        f = request.files['file']
+        multi_part_upload(bucket, name_file, f.filename)
+        return 'file uploaded successfully <a href="/">GO to Home</a>'
 
-if __name__=='__main__':
-    app.run(host='0.0.0.0',port=8080,debug=True)
+    if request.method == 'GET':
+        return render_template('upload.html')
 
-        
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080, debug=True)

@@ -3,6 +3,7 @@ from ibm_db import tables
 from ibm_db import fetch_assoc
 from ibm_db import exec_immediate
 
+#  For security purposes this sec havent added
 dbname = ""
 username = ""
 password = ""

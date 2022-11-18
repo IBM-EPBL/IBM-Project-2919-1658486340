@@ -16,7 +16,7 @@ def addUser(username, email, password):
 def getPassword(username):
     sql_fd = f"SELECT pass FROM user WHERE username='{username}'"
     r = execReturn(sql_fd)
-    print("SERNAME "+u+"PASS"+r)
+    print("SURNAME "+u+"PASS"+r)
     return r[0]['PASS']
 
 

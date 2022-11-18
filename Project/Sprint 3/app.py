@@ -4,8 +4,6 @@ from flask import Flask, url_for, render_template, request, redirect, session
 from flask_session import Session
 import utils
 from datetime import datetime
-from flask import Flask, session
-from flask_session import Session
 
 
 app = Flask(__name__,
