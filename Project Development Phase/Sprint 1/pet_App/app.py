@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 # from flask.ext.sqlalchemy import SQLAlchemy
 import logging
@@ -45,6 +44,11 @@ def about():
     return render_template('pages/placeholder.about.html')
 
 
+@app.route('/contact')
+def contact():
+    return render_template('pages/placeholder.contact.html')
+
+
 @app.route('/login')
 def login():
     form = LoginForm(request.form)
@@ -63,8 +67,7 @@ def forgot():
     return render_template('forms/forgot.html', form=form)
 
 
-# Error handlers.
-
+# Error handling routes.
 
 @app.errorhandler(500)
 def internal_error(error):
@@ -89,6 +92,5 @@ if not app.debug:
     app.logger.info('errors')
 
 
-# Default port:
 if __name__ == '__main__':
     app.run()

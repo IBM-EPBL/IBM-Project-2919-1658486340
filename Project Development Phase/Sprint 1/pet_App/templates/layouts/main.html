@@ -23,10 +23,16 @@
 </head>
 <body>
 
+  <style>
+    .navi {
+      background-color: #9BA17B;
+    }
+  </style>
+
   <div id="wrap">
 
     <!-- Responsive navbar -->
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top navi">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,6 +46,7 @@
           <ul class="nav navbar-nav">
             <li {% if request.endpoint == 'home' %} class="active" {% endif %}><a href="{{ url_for('home') }}">Home</a></li>
             <li {% if request.endpoint == 'about' %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
+            <li {% if request.endpoint == 'contact' %} class="active" {% endif %}><a href="{{ url_for('contact') }}">About</a></li>
 
           </ul>
           <ul class="nav navbar-nav pull-right">
