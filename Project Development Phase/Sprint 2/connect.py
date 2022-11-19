@@ -7,7 +7,7 @@ dbname = ""
 username = ""
 password = ""
 hostname = "0"
-cert = ""
+crt = ""
 port = ""
 protocol = "TCPIP"
 t = 1
@@ -24,7 +24,7 @@ def results(command):
 
 
 conn = ibm_db.pconnect(
-    f"DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={cert};", "", "")
+    f"DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={crt};", "", "")
 
 
 def execDB(cmd):

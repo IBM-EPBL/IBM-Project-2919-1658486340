@@ -1,11 +1,9 @@
-import errno
-import os
 from flask import Flask, url_for, render_template, request, redirect, session
+from flask_session import Session
 import requests
 import json
-from flask_session import Session
+import os
 import utils
-
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -81,4 +79,4 @@ if __name__ == "__main__":
     # app.secret_key = "ThisIsASecretKey"
 
     db.create_all()
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=5001)

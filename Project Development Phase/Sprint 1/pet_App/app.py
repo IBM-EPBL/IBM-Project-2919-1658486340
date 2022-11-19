@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 
 # Views and routes
@@ -48,6 +48,24 @@ def forgot():
     form = ForgotForm(request.form)
     return render_template('forms/forgot.html', form=form)
 
+# Sql performances
+
+
+# @app.teardown_request
+# def shutdown_session(exception=None):
+#     db_session.remove()
+
+
+# def login_required(test):
+#     @wraps(test)
+#     def wrap(*args, **kwargs):
+#         if 'logged_in' in session:
+#             return test(*args, **kwargs)
+#         else:
+#             flash('You need to login first.')
+#             return redirect(url_for('login'))
+#     return wrap
+
 
 # Error handling routes.
 
@@ -72,25 +90,6 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
-
-
-@app.teardown_request
-def shutdown_session(exception=None):
-    db_session.remove()
-
-
-
-def login_required(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('login'))
-    return wrap
-
-
-
+# Run file
 if __name__ == '__main__':
     app.run()
