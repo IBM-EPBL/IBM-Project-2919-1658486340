@@ -24,6 +24,10 @@
 <body>
 
   <style>
+    body {
+      color: white;
+      background-image: linear-gradient(#7DE5ED, #5DA7DB);
+    }
     .navi {
       background-color: #9BA17B;
     }
@@ -46,7 +50,7 @@
           <ul class="nav navbar-nav">
             <li {% if request.endpoint == 'home' %} class="active" {% endif %}><a href="{{ url_for('home') }}">Home</a></li>
             <li {% if request.endpoint == 'about' %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
-            <li {% if request.endpoint == 'contact' %} class="active" {% endif %}><a href="{{ url_for('contact') }}">About</a></li>
+            <li {% if request.endpoint == 'contact' %} class="active" {% endif %}><a href="{{ url_for('contact') }}">Contact</a></li>
 
           </ul>
           <ul class="nav navbar-nav pull-right">
