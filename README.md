@@ -1,4 +1,4 @@
-Personal Expense Tracker Application
+# Personal Expense Tracker Application
 
 Project Description:
 
