@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 
 # Views and routes
@@ -73,15 +73,13 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
 
-# Automatically implement SQLAlchemy.
-'''
+
 @app.teardown_request
 def shutdown_session(exception=None):
     db_session.remove()
-'''
 
-# Login required section.
-'''
+
+
 def login_required(test):
     @wraps(test)
     def wrap(*args, **kwargs):
@@ -91,7 +89,7 @@ def login_required(test):
             flash('You need to login first.')
             return redirect(url_for('login'))
     return wrap
-'''
+
 
 
 if __name__ == '__main__':
