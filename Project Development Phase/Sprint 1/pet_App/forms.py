@@ -1,11 +1,11 @@
 from flask_wtf import Form
-from wtforms import TextAreaField, PasswordField
+from wtforms import TextAreaField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo, Length
 
 
 class RegisterForm(Form):
     name = TextAreaField(
-        'Username', validators=[DataRequired(), Length(min=6, max=25)]
+        'Username', validators=[DataRequired(), Length(min=4, max=25)]
     )
     email = TextAreaField(
         'Email', validators=[DataRequired(), Length(min=6, max=40)]
@@ -16,9 +16,9 @@ class RegisterForm(Form):
     confirm = PasswordField(
         'Repeat Password',
         [DataRequired(),
-        EqualTo('password', message='Passwords must match')]
+        EqualTo('password', message='Passwords should match')]
     )
-
+    submit = SubmitField("Register")
 
 class LoginForm(Form):
     name = TextAreaField('Username', [DataRequired()])

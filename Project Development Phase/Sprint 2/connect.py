@@ -23,8 +23,14 @@ def results(command):
     return ret
 
 
-conn = ibm_db.pconnect(
-    f"DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={crt};", "", "")
+conn = ibm_db.connect(
+    f"DATABASE={dbname};"
+    f"HOSTNAME={hostname};"
+    f"PORT={port};PROTOCOL={protocol};"
+    f"UID={username};PWD={password};"
+    f"SECURITY=SSL;"
+    f"SSLServerCertificate={crt};",
+    "", "")
 
 
 def execDB(cmd):

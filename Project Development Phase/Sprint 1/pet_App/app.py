@@ -1,16 +1,23 @@
-from flask import Flask
-from flask import render_template, request
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+import logging
+from logging import Formatter, FileHandler
+from flask_bcrypt import Bcrypt
 from forms import *
 
+# App
 app = Flask(__name__)
-app.app_context().push()
+app.app_context().push() 
+# Connect to the database app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///registration.db' 
+# app.config['SECRET_KEY'] = '2ORwjMDy7f' 
+# db = SQLAlchemy(app) 
 
-# Connect to the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///registration.db'
-app.config['SECRET_KEY'] = '2ORwjMDy7f'
-db = SQLAlchemy(app)
+
+# login_manager = LoginManager() 
+# login_manager.init_app(app) 
+# login_manager.login_view = "login"
+
 class User(db.Model, UserMixin):
     __tablename__ = 'Users'
 
@@ -39,14 +46,22 @@ def about():
 def contact():
     return render_template('pages/placeholder.contact.html')
 
+
 @app.route('/login')
 def login():
     form = LoginForm(request.form)
     return render_template('forms/login.html', form=form)
 
+
 @app.route('/register')
 def register():
     form = RegisterForm(request.form)
+    if form.validate():
+        hashed_password = Bcrypt.generate_password_hash(form.password)
+        new_user = User(username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('main'))
     return render_template('forms/register.html', form=form)
 
 
@@ -54,11 +69,6 @@ def register():
 def forgot():
     form = ForgotForm(request.form)
     return render_template('forms/forgot.html', form=form)
-
-
-
-# Sql performances
-
 
 
 # Run file

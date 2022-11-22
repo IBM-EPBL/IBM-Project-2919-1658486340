@@ -2,12 +2,14 @@ from flask import Flask, url_for, render_template, request, redirect, session
 from flask_session import Session
 import requests
 import json
-import os
 import utils
 
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///registration.db'
+app.config['SECRET_KEY'] = '2ORwjMDy7f'
+db = SQLAlchemy(app)
 SESSION_TYPE = "filesystem"
 PERMANENT_SESSION_LIFETIME = 1800
 
