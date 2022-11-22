@@ -8,14 +8,15 @@ from forms import *
 
 # App
 app = Flask(__name__)
-app.app_context().push() 
-# Connect to the database app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///registration.db' 
-# app.config['SECRET_KEY'] = '2ORwjMDy7f' 
-# db = SQLAlchemy(app) 
+app.app_context().push()
+# Connect to the database 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///registration.db'
+app.config['SECRET_KEY'] = '2ORwjMDy7f'
+db = SQLAlchemy(app)
 
 
-# login_manager = LoginManager() 
-# login_manager.init_app(app) 
+# login_manager = LoginManager()
+# login_manager.init_app(app)
 # login_manager.login_view = "login"
 
 class User(db.Model, UserMixin):
@@ -31,6 +32,7 @@ class User(db.Model, UserMixin):
         self.password = password
 
 # Views and routes
+
 
 @app.route('/')
 def home():
