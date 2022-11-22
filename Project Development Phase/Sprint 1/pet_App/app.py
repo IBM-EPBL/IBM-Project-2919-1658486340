@@ -1,18 +1,20 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from logging import Formatter, FileHandler
+from flask_login import UserMixin
 from forms import *
 
 
 app = Flask(__name__)
+db = SQLAlchemy(app)
 app.config.from_object('config')
 
 
-db = SQLAlchemy(app)
-
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False)
+    password = db.Column(db.String(80), nullable=False)
 
 # Views and routes
-
 
 @app.route('/')
 def home():
