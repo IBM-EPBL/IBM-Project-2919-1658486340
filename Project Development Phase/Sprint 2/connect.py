@@ -7,7 +7,6 @@ hostname = "125f9f61-9715-46f9-9399-c8177b21803b.c1ogj3sd0tgtu0lqde00.databases.
 cert = "DigiCertGlobalRootCA.crt"
 port = 30426
 protocol = "TCPIP"
-t = 1
 
 conn = ibm_db.connect(
     "DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={cert}")
@@ -21,7 +20,7 @@ def executingReturn(cmd):
     return (conn, cmd)
 
 
-# Sql performances 
+# Sql performances
 
 def addUser(username, email, password):
     sql_fd = f"SELECT * FROM user WHERE username='{username}'"

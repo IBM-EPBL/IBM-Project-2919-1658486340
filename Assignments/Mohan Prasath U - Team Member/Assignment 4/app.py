@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = ''
+app.config['SECRET_KEY'] = '4605e6ede10aa258729ba484'
 
 
 @app.route('/create/', methods=('GET', 'POST'))
