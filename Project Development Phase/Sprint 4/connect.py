@@ -22,7 +22,7 @@ def results(command):
     return ret
 
 
-conn = ibm_db.pconnect(
+conn = ibm_db.connect(
     f"DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={cert};", "", "")
 
 

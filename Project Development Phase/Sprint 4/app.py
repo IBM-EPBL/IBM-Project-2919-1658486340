@@ -3,6 +3,7 @@ import os
 from flask import Flask, url_for, render_template, request, redirect, session
 import requests
 import json
+from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 import utils
 from datetime import datetime
@@ -17,7 +18,7 @@ app = Flask(__name__,
 app.config['SESSION_TYPE'] = 'filesystem'
 PERMANENT_SESSION_LIFETIME = 1800
 app.config['SECRET_KEY'] = 'super secret key'
-app.config.update(SECRET_KEY=os.urandom(24))
+app.config.update(SECRET_KEY=os.random(24))
 
 app.config.from_object(__name__)
 
@@ -25,6 +26,7 @@ Session(app)
 
 PERMANENT_SESSION_LIFETIME = 1800
 
+db = SQLAlchemy(app)
 
 def check_credentials(e, p):
     if utils.getPassword(e) == p:
@@ -113,6 +115,6 @@ def logout():
 
 
 if __name__ == "__main__":
-    # db.create_all()
+    db.create_all()
     app.run(debug=True)
     # app.run(host="0.0.0.0", port=5000)

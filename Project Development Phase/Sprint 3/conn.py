@@ -2,7 +2,7 @@ import ibm_db
 from ibm_db import tables
 from ibm_db import fetch_assoc
 from ibm_db import exec_immediate
-
+from app import db
 
 #  For security purposes this sec havent added
 dbname = "bludb"

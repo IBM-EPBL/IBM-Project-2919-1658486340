@@ -2,15 +2,17 @@ import ibm_db
 from ibm_db import tables
 from ibm_db import fetch_assoc
 from ibm_db import exec_immediate
+from app import db
 
 dbname = "bludb"
-username = "zgy62002"
-password = "EkD9WuGi9Q8PHyTM"
-hostname = "0c77d6f2-5da9-48a9-81f8-86b520b87518.bs2io90l08kqb1od8lcg.databases.appdomain.cloud"
+username = "txs49042"
+password = "cNEKMzATxRu70nLU"
+hostname = "125f9f61-9715-46f9-9399-c8177b21803b.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud"
 cert = "DigiCertGlobalRootCA.crt"
-port = 31198
+port = 30426
 protocol = "TCPIP"
-# establish connection
+
+# Establish connection
 
 
 def establish():
@@ -23,7 +25,7 @@ def establish():
     except:
         print("Error connecting to database")
 
-# to insert a new user
+# To insert a new user
 
 
 def insertuser(conn1, name, email, user, passw):
@@ -35,7 +37,7 @@ def insertuser(conn1, name, email, user, passw):
     except:
         print("cannot insert user to database")
 
-# to check if user exists with given email
+# To check if user exists with given email
 
 
 def useremail_check(conn, email):
@@ -47,7 +49,7 @@ def useremail_check(conn, email):
     else:
         return False
 
-# to check if user exists with given username and password
+# To check if user exists with given username and password
 
 
 def user_check(conn, email, passw):
@@ -57,7 +59,7 @@ def user_check(conn, email, passw):
     results = db.fetch_both(stmt)
     return results
 
-# set basic details of each user
+# Set basic details of each user
 
 
 def setuser(conn, money, budget, goal, email, pwd):
@@ -69,7 +71,7 @@ def setuser(conn, money, budget, goal, email, pwd):
     except:
         print("Error inserting data to database")
 
-# insert a new transaction of a user
+# Insert a new transaction of a user
 
 
 def inserttransac(conn, id, amt, des, cat):
@@ -81,7 +83,7 @@ def inserttransac(conn, id, amt, des, cat):
     except:
         print("Error inserting data to database")
 
-# to get the total mount spent for the month
+# To get the total mount spent for the month
 
 
 def gettotalsum(conn, id):
@@ -93,7 +95,7 @@ def gettotalsum(conn, id):
     except:
         print("Error while fetching")
 
-# to get all transactions of a user
+# To get all transactions of a user
 
 
 def getalltransac(conn, id):
@@ -117,7 +119,7 @@ def getalltransac(conn, id):
     except:
         print("Error while fetching")
 
-# to delete a transaction
+# To delete a transaction
 
 
 def deletetrans(conn, id):
@@ -128,7 +130,7 @@ def deletetrans(conn, id):
     except:
         print("Error deleting data from database")
 
-# to update a transaction
+# To update a transaction
 
 
 def updateTrans(conn, id, amt, des):

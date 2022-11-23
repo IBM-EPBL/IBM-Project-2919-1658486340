@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="43e269bf-bae8-4831-b52b-51b6a5d0aa58" name="Changes" comment="" />
+    <list default="true" id="43e269bf-bae8-4831-b52b-51b6a5d0aa58" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Sprint 1/init" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sprint 3/connect.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Sprint 3/connect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sprint 4/conn.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Sprint 4/conn.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +77,7 @@
       <workItem from="1669097257358" duration="13000" />
       <workItem from="1669100136925" duration="6727000" />
       <workItem from="1669115412502" duration="2282000" />
-      <workItem from="1669198083624" duration="5516000" />
+      <workItem from="1669198083624" duration="6177000" />
     </task>
     <servers />
   </component>

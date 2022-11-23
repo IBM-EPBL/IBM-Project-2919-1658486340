@@ -1,5 +1,6 @@
 import errno
 import os
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, url_for, render_template, request, redirect, session
 from flask_session import Session
 import utils
@@ -13,8 +14,8 @@ app = Flask(__name__,
 app.config['SESSION_TYPE'] = 'filesystem'
 PERMANENT_SESSION_LIFETIME = 1800
 app.config['SECRET_KEY'] = 'super secret key'
-app.config.update(SECRET_KEY=os.urandom(24))
-
+app.config.update(SECRET_KEY=os.random(24))
+db = SQLAlchemy(app)
 app.config.from_object(__name__)
 
 Session(app)
@@ -94,6 +95,6 @@ def logout():
 
 
 if __name__ == "__main__":
-    # db.create_all()
+    db.create_all()
     app.run(debug=True)
     # app.run(host="0.0.0.0", port=5000)
