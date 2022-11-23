@@ -1,41 +1,54 @@
 import ibm_db
-from ibm_db import tables
-from ibm_db import fetch_assoc
-from ibm_db import exec_immediate
 
-dbname = ""
-username = ""
-password = ""
-hostname = "0"
-crt = ""
-port = ""
+dbname = "bludb"
+username = "txs49042"
+password = "cNEKMzATxRu70nLU"
+hostname = "125f9f61-9715-46f9-9399-c8177b21803b.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud"
+cert = "DigiCertGlobalRootCA.crt"
+port = 30426
 protocol = "TCPIP"
 t = 1
 
-
-def results(command):
-    ret = []
-    result = fetch_assoc(command)
-
-    while result:
-        ret.append(result)
-        result = fetch_assoc(command)
-    return ret
-
-
 conn = ibm_db.connect(
-    f"DATABASE={dbname};"
-    f"HOSTNAME={hostname};"
-    f"PORT={port};PROTOCOL={protocol};"
-    f"UID={username};PWD={password};"
-    f"SECURITY=SSL;"
-    f"SSLServerCertificate={crt};",
-    "", "")
+    "DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={cert}")
 
 
-def execDB(cmd):
-    return exec_immediate(conn, cmd)
+def executingDB(cmd):
+    return (conn, cmd)
 
 
-def execReturn(cmd):
-    return results(exec_immediate(conn, cmd))
+def executingReturn(cmd):
+    return (conn, cmd)
+
+
+# Sql performances 
+
+def addUser(username, email, password):
+    sql_fd = f"SELECT * FROM user WHERE username='{username}'"
+    r = executingReturn(sql_fd)
+
+    if r != []:
+        return "Username Exists"
+
+    sql_st = f"INSERT INTO user(username , email , pass ) values ( '{username}' , '{email}' , '{password}' )"
+    u = executingDB(sql_st)
+    return "User registered successfully"
+
+
+def getPassword(username):
+    sql_fd = f"SELECT pass FROM user WHERE username='{username}'"
+    r = executingReturn(sql_fd)
+    print("SURNAME "+u+"PASS"+r)
+    return r[0]['PASS']
+
+
+def fetchFinanceRecord(username):
+    sql_fd = f"SELECT * FROM finance WHERE username='{username}'"
+    r = executingReturn(sql_fd)
+    return r
+
+
+def createFinanceRecord(username, amount, category, description, date):
+    sql_st = f"INSERT INTO finance(username , amount , category , description , date ) values ( '{username}' , '{amount}' , '{category}' , '{description}' , '{date}' )"
+    r = executingDB(sql_st)
+    return "Record created successfully"

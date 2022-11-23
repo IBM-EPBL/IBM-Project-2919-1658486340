@@ -78,7 +78,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    # app.secret_key = "ThisIsASecretKey"
-
+    # Removed due to security purposes
+    app.secret_key = ""
     db.create_all()
     app.run(host="0.0.0.0", port=5001)
