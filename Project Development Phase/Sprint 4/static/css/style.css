@@ -1,3 +1,7 @@
+a {
+  color: antiquewhite;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
