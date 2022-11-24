@@ -13,7 +13,7 @@ app = Flask(__name__,
             template_folder='templates')
 app.config['SESSION_TYPE'] = 'filesystem'
 PERMANENT_SESSION_LIFETIME = 1800
-app.config['SECRET_KEY'] = 'super secret key'
+app.config['SECRET_KEY'] = 'bd8307d3767b4c67b1b3086a657c2ef4'
 app.config.update(SECRET_KEY=os.random(24))
 db = SQLAlchemy(app)
 app.config.from_object(__name__)

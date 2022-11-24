@@ -1,14 +1,9 @@
-import errno
 import os
 from flask import Flask, url_for, render_template, request, redirect, session
-import requests
-import json
 from flask_sqlalchemy import SQLAlchemy
-from flask_session import Session
 import utils
 from datetime import datetime
 from flask import Flask, session
-from flask_session import Session
 
 
 app = Flask(__name__,
@@ -17,16 +12,15 @@ app = Flask(__name__,
             template_folder='templates')
 app.config['SESSION_TYPE'] = 'filesystem'
 PERMANENT_SESSION_LIFETIME = 1800
-app.config['SECRET_KEY'] = 'super secret key'
+app.config['SECRET_KEY'] = 'bd8307d3767b4c67b1b3086a657c2ef4'
 app.config.update(SECRET_KEY=os.random(24))
 
 app.config.from_object(__name__)
 
-Session(app)
-
 PERMANENT_SESSION_LIFETIME = 1800
 
 db = SQLAlchemy(app)
+
 
 def check_credentials(e, p):
     if utils.getPassword(e) == p:
@@ -117,4 +111,4 @@ def logout():
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
-    # app.run(host="0.0.0.0", port=5000)
+    # app.run(host="0.0.0.0", port=5003)

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43e269bf-bae8-4831-b52b-51b6a5d0aa58" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Sprint 1/init" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sprint 3/connect.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Sprint 3/connect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sprint 4/conn.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Sprint 4/conn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connect.py" beforeDir="false" afterPath="$PROJECT_DIR$/connect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +77,9 @@
       <workItem from="1669097257358" duration="13000" />
       <workItem from="1669100136925" duration="6727000" />
       <workItem from="1669115412502" duration="2282000" />
-      <workItem from="1669198083624" duration="6177000" />
+      <workItem from="1669198083624" duration="7465000" />
+      <workItem from="1669301661259" duration="1338000" />
+      <workItem from="1669305353970" duration="13000" />
     </task>
     <servers />
   </component>
@@ -97,6 +99,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Sprint_2$Sprint_2.coverage" NAME="Sprint 2 Coverage Results" MODIFIED="1669108218917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Sprint_2$Sprint_2.coverage" NAME="Sprint 2 Coverage Results" MODIFIED="1669304154029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
