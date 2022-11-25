@@ -13,11 +13,43 @@
     <title>Login Page</title>
   </head>
   <body class="bg-blue-100">
-    <nav>
-      <a>Home</a>
-      <a>About</a>
-      <a>Contact</a>
-      <a>Expence</a>
+    <nav
+      class="flex items-center justify-between flex-wrap bg-gradient-to-r from-purple-500 to-pink-500 p-6"
+    >
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight"
+          >Personal Finance Tracker</span
+        >
+      </div>
+      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+          <a
+            href="/dashboard"
+            class="block mt-4 text-white lg:inline-block lg:mt-0 text-teal-200 mr-4"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/graph"
+            class="block mt-4 text-white lg:inline-block lg:mt-0 text-teal-200 mr-4"
+          >
+            Graph
+          </a>
+          <a
+            href="/configure"
+            class="block mt-4 text-white lg:inline-block lg:mt-0 text-teal-200"
+          >
+            Configure
+          </a>
+        </div>
+        <button
+          onclick="window.location.href='logout'"
+          type="submit"
+          class="w-full float-right w-32 text-center py-3 rounded bg-blue-700 text-white hover:bg-blue-800 focus:outline-none"
+        >
+          Login Out
+        </button>
+      </div>
     </nav>
   </body>
 </html>
