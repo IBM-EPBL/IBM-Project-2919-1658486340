@@ -29,13 +29,13 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # if request.method == 'POST':
-    # name = request.form['name']
-    # password = request.form['password']
-    # sql = "SELECT * FROM registration WHERE name=? AND password=?, (name, password)"
-    # stmt = ibm_db.exec_immediate(conn, sql)
-    # res = conn.fetch_assoc(stmt)
-    return render_template('dashboard.html')
+    if request.method == 'POST':
+        name = request.form['name']
+        password = request.form['password']
+        sql = "SELECT * FROM registration WHERE name=? AND password=?, (name, password)"
+        stmt = ibm_db.exec_immediate(conn, sql)
+        res = conn.fetch_assoc(stmt)
+    return render_template('login.html')
 
 
 @app.route('/signup', methods=["GET", "POST"])
