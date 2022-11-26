@@ -1,114 +1,119 @@
-import os
-from flask import Flask, url_for, render_template, request, redirect, session
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for, session
+import requests
+import flash
+import ibm_db
+from ibm_db import exec_immediate
+from flask_session import Session
 import utils
-from datetime import datetime
-from flask import Flask, session
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'abf6703a27964e61953307e963426a04'
+
+dbname = "bludb"
+username = "txs49042"
+password = "cNEKMzATxRu70nLU"
+hostname = "125f9f61-9715-46f9-9399-c8177b21803b.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud"
+cert = "DigiCertGlobalRootCA.crt"
+port = 30426
+protocol = "TCPIP"
+
+conn = ibm_db.connect(
+    f"DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={cert};", "", "")
 
 
-app = Flask(__name__,
-            static_url_path='',
-            static_folder='static',
-            template_folder='templates')
-app.config['SESSION_TYPE'] = 'filesystem'
-PERMANENT_SESSION_LIFETIME = 1800
-app.config['SECRET_KEY'] = 'bd8307d3767b4c67b1b3086a657c2ef4'
-app.config.update(SECRET_KEY=os.random(24))
+def Connection():
+    try:
+        conn = ibm_db.connect(
+            f"DATABASE={dbname};HOSTNAME={hostname};PORT={port};PROTOCOL={protocol};UID={username};PWD={password};SECURITY=SSL;SSLServerCertificate={cert};", "", "")
+        print("Database Connected Successfully !")
+        conn.execute(
+            "create table if not exists txs49042.users(id integer primary key, name text, password password, contact text, email text )")
+        return conn
+    except:
+        print("Unable to connect: ", ibm_db.conn_errormsg())
 
-app.config.from_object(__name__)
 
-PERMANENT_SESSION_LIFETIME = 1800
+Connection()
 
-db = SQLAlchemy(app)
+
+@app.route('/')
+def home():
+    return render_template("index.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        name = request.form['name']
+        password = request.form['password']
+        sql = "SELECT * FROM txs49042.users WHERE name=? AND password=?, (name, password)"
+        stmt = ibm_db.exec_immediate(conn, sql)
+        res = conn.fetch_assoc(stmt)
+        data = res.fetchone()
+    if data:
+        session["name"] = data["name"]
+        session["password"] = data["password"]
+        return redirect("dashboard")
+    else:
+        flash("Username and password doesn't match", "danger")
+    return render_template('login.html')
+
+
+@app.route('/signup', methods=["GET", "POST"])
+def signup():
+    if request.method == 'POST':
+        arr = []
+        try:
+            name = request.form['name']
+            password = request.form['password']
+            phone = request.form['phone']
+            email = request.form['email']
+            conn = Connection()
+            sql = "insert into txs49042.USER(name, phone, email, password) values (?, ?, ?, ?), (name, phone, email, password)"
+            stmt = ibm_db.exec_immediate(conn, sql)
+            conn.row_factory = conn.fetch_assoc(stmt)
+            flash("Record added successfully", "success")
+        except:
+            flash("Error in insert", "danger")
+        finally:
+            return redirect(url_for("dashboard"))
+            conn.close()
+    return render_template("signup.html")
 
 
 def check_credentials(e, p):
     if utils.getPassword(e) == p:
-        session['logged_in'] = True
-        session['email'] = e
+        Session['logged_in'] = True
+        Session['email'] = e
         print("Valid User")
         return redirect(url_for('dashboard'))
     return render_template('login.html', error="Invalid Credentials")
 
 
-def register(u, p, e):
-    print(u, p, e)
-    try:
-        r = utils.addUser(u, e, p)
-        if (r == "Username Exists"):
-            return render_template('signup.html', error="Username Exists")
-        return render_template('login.html')
-    except:
-        return render_template('signup.html', error="Error in inserting user")
-
-
-def add_finance_record(e, a, c, d, dt):
-    try:
-        r = utils.createFinanceRecord(e, a, c, d, dt)
-        return redirect(url_for('dashboard'))
-    except:
-        return redirect(url_for('dashboard'))
-
-
-@app.route('/graph', methods=['GET', 'POST'])
-def graph():
-    return render_template('graph.html')
-
-
-@app.route('/', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        print("Checking Credentials")
-        return check_credentials(request.form['email'], request.form['password'])
-    else:
-        if session.get('logged_in'):
-            return redirect(url_for('dashboard'))
-        return render_template('login.html')
-
-
-@app.route('/dashboard', methods=['GET', 'POST'])
+@app.route('/dashboard')
 def dashboard():
-    if request.method == 'POST':
-        email = session['email']
-        print(request.form)
-        # if True:
-        if request.form['t_type'] == 'add_transaction':
-            now = datetime.now()
-            dt_string = now.strftime("%Y/%m/%d %H:%M")
-            date = dt_string
-            print(date)
-            return add_finance_record(email, request.form['category'], request.form['amount'], request.form['description'], date)
-        else:
-            print("Lol bro")
-    else:
-        if session.get('logged_in'):
-            email = session['email']
-            rows = utils.fetchFinanceRecord(email)
-            spending = utils.getIncomeExpend(email)
-            percent = (spending['expend']*100)/spending['income']
-            percent = min(100, percent)
-            l = len(rows)
-            left = "Rs "+str(spending['expend']) + \
-                " spent out of Rs "+str(spending['income'])
-            return render_template('dashboard.html', rows=rows, len=l, left=left, percent=str(percent)+"%")
-        return render_template('login.html')
+    return render_template("dashboard.html")
 
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signin():
-    if request.method == 'POST':
-        return register(request.form['name'], request.form['password'], request.form['email'])
-    else:
-        return render_template('signup.html')
+@app.route('/graph')
+def graph():
+    return render_template("graph.html")
 
 
-@app.route('/logout', methods=['GET', 'POST'])
+@app.route('/transactionList')
+def transactionList():
+    return render_template("transactionList.html")
+
+
+@app.route('/addTransactionList')
+def addTransactionList():
+    return render_template("addTransaction.html")
+
+
+@app.route('/logout')
 def logout():
-    session['logged_in'] = False
-    return redirect(url_for('login'))
+    session.clear()
+    return redirect(url_for("login"))
 
 
-if __name__ == "__main__":
-    db.create_all()
-    app.run(debug=True)
-    # app.run(host="0.0.0.0", port=5003)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000)

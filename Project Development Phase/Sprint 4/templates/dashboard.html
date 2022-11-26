@@ -10,7 +10,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/css/style.css" rel="stylesheet" />
+    <link href="../static/style.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,21 +19,26 @@
     />
     <title>Dashboard Page</title>
   </head>
-  <body class="bg-gray-150">
+  <body class="bg-gray-100">
     {% include 'navbar.html' %}
-
-    <div class="flex">
+    <div class="text-center mt-10 mb-10">
+      <h2 class="text-2xl">👋 Hey there !... 👋</h2>
+      <p class="text-lg font-semibold">
+        Welcome to the best platform to track your expense
+      </p>
+    </div>
+    <div>
       <div>
         <div class="flex">
           {% include 'addTransaction.html' %} {% include 'setTrigger.html' %}
         </div>
         {% include 'transactionList.html' %}
       </div>
-      <div class="px-8 py-2 m-8 mt-8">
+      <div class="progress">
         <div class="font-bold text-2xl">Complete User Stats</div>
         <div class="w-[30vw] mt-4">
           <div>
-            <div class="mb-1 text-lg font-medium dark:text-white">
+            <div class="mb-1 text-lg font-medium text-black">
               Expense Progress
             </div>
             <div class="w-full h-6 bg-gray-300 rounded-full dark:bg-gray-700">

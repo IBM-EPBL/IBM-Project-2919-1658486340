@@ -12,16 +12,17 @@
     />
     <title>Home Page</title>
   </head>
-  <body class="bg-blue-100">
+  <body class="bg-gradient-to-r from-purple-500 to-pink-500">
     <div class="flex h-screen">
       <div class="m-auto">
-        <h4>Hey Welcome, {{name}}</h4>
+        <h4>Hey Welcome {{session["name"]}}</h4>
         <button
-          onclick="window.location.href='logout'"
+          onclick="window.location.href='login'"
           type="submit"
           class="w-full text-center py-3 rounded bg-blue-700 text-white hover:bg-blue-800 focus:outline-none my-1"
+          href="/login"
         >
-          Log out
+          Log In
         </button>
       </div>
     </div>
