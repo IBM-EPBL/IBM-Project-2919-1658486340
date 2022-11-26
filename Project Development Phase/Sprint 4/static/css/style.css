@@ -21,3 +21,11 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.nava {
+    padding-left: 100px;
+    padding-right: 10px;
+}
+.progress {
+    margin-top: 50px;
+    margin-left: 500px;
+}
