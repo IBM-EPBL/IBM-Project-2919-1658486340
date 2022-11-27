@@ -1,5 +1,0 @@
-Flask
-ibm-db
-Flask-Session
-sendgrid
-python-dotenv
