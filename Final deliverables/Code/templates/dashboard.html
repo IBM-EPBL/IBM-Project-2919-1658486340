@@ -30,9 +30,9 @@
     <div>
       <div>
         <div class="flex">
-          {% include 'addTransaction.html' %} {% include 'setTrigger.html' %}
+          {%  'addTransaction.html' %} {%  'setTrigger.html' %}
         </div>
-        {% include 'transactionList.html' %}
+        {%  'transactionList.html' %}
       </div>
 
       <div class="ml-96 mr-96 mt-10 mb-40">
@@ -56,7 +56,7 @@
                   style="width: 73%"
                 ></div>
                 <span class="mb-1 text-xs float-right pr-2 pt-2"
-                  ><b>Balance: </b>11800Rs
+                  ><b>Balance: </b>{{Balance}}
                 </span>
               </div>
             </div>
